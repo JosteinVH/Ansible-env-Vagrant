@@ -20,6 +20,6 @@ Creates a lab environment for Ansible using Vagrant.
 4. Verify:
 
    ```Shell
-   Login to controller using: _vagrant/vagrant_ (username/password)
+   Login to controller using: vagrant/vagrant (username/password)
    ansible -m ping all
    ```
