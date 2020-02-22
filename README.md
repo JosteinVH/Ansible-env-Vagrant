@@ -8,13 +8,18 @@ Creates a lab environment for Ansible using Vagrant.
 
 ## Usage
 2. Generate key pair:
-
    ```Shell
+   cd Ansible-env-Vagrant/
    ssh-keygen -f Ansible-env-Vagrant
    ```
-
 3. From repository root, run:
 
    ```Shell
    vagrant up
+   ```
+4. Verify:
+
+   ```Shell
+   Login to controller using: vagrant/vagrant (username/password)
+   ansible -m ping all
    ```
