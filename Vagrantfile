@@ -1,11 +1,12 @@
 public_key = File.read("id_rsa.pub")
+vmbox = "centos/7"
 
 Vagrant.configure("2") do |config|
     config.vm.define "controller" do |controller|
-        controller.vm.box = "centos/7"
+        controller.vm.box = "#{vmbox}"
         controller.vm.hostname = "controller"
         controller.vm.network "private_network", ip: "192.168.100.10"
-        
+
         controller.vm.provision "file", source: "id_rsa", destination: "/home/vagrant/.ssh/id_rsa"
         controller.vm.provision :shell, :inline =>"
             chmod 0600 /home/vagrant/.ssh/id_rsa
@@ -22,15 +23,14 @@ Vagrant.configure("2") do |config|
 
     end
 
-    (11..11).each do |i|
+    (11..13).each do |i|
         config.vm.define "node-#{i}" do |node|
-            node.vm.box = "centos/7"
+            node.vm.box = "#{vmbox}"
             node.vm.hostname = "node-#{i}"
             node.vm.network "private_network", ip: "192.168.100.#{i}"
-            node.vm.boot_timeout = 500
 
             node.vm.provision :shell, :inline =>"
-            echo 'Copying ansible-vm public SSH Keys to the VM'
+            echo 'Copying public key to VM'
             echo '#{public_key}' >> /home/vagrant/.ssh/authorized_keys
             ", privileged: false
         end
@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
    config.vm.provider "virtualbox" do |vb|
      # Display the VirtualBox GUI when booting the machine
      vb.gui = true
-     # Customize the amount of memory on the VM:
-     vb.memory = "1024"
+     vb.memory = "2048"
+     vb.cpus = 2
    end
 end
