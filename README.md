@@ -17,9 +17,11 @@ Creates a lab environment for Ansible using Vagrant.
    ```Shell
    vagrant up
    ```
-4. Verify:
+4. Verify, login to controller:
 
    ```Shell
-   Login to controller using: vagrant/vagrant (username/password)
-   ansible -m ping all
+   controller login: vagrant
+   Password: vagrant
+   
+   $ ansible -m ping all
    ```
